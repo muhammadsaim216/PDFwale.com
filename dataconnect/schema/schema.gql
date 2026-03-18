@@ -1,0 +1,36 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  photoUrl: String
+}
+
+type PDFDocument @table {
+  title: String!
+  fileUrl: String!
+  isPublic: Boolean!
+  createdAt: Timestamp!
+  description: String
+  tags: [String]
+  user: User
+}
+
+type Collection @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+  user: User
+}
+
+type CollectionPDF @table(key: ["collection", "pdfDocument"]) {
+  addedAt: Timestamp!
+  collection: Collection!
+  pdfDocument: PDFDocument!
+}
+
+type Comment @table {
+  content: String!
+  createdAt: Timestamp!
+  user: User
+  pdfDocument: PDFDocument
+}
